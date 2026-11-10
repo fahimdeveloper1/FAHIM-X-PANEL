@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="bn" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAHIM X PANEL - Official Web Store</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#05070D',
+                            card: '#0D111A',
+                            border: '#1F2937',
+                            neonPurple: '#A855F7',
+                            neonCyan: '#06B6D4',
+                            neonGreen: '#10B981',
+                            neonRed: '#EF4444'
+                        }
+                    },
+                    animation: {
+                        'rgb-flow': 'rgbFlow 4s linear infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        rgbFlow: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.8', filter: 'drop-shadow(0 0 10px #06B6D4)' },
+                            '50%': { opacity: '1', filter: 'drop-shadow(0 0 20px #A855F7)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .rgb-gradient-border {
+            background: linear-gradient(90deg, #ff0055, #7a00ff, #00f0ff, #00ff66, #ff0055);
+            background-size: 300% 300%;
+            animation: rgbFlow 4s linear infinite;
+        }
+        .neon-card {
+            background: rgba(13, 17, 26, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 4px 20px -2px rgba(6, 182, 212, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .neon-card:hover {
+            border-color: rgba(6, 182, 212, 0.7);
+            box-shadow: 0 8px 30px rgba(168, 85, 247, 0.35);
+            transform: translateY(-2px);
+        }
+        @keyframes rgbFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-[#05070D] text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-purple-600 selection:text-white">
+
+    <!-- Top Permanent RGB Flow Line -->
+    <div class="h-1 w-full rgb-gradient-border sticky top-0 z-50"></div>
+
+    <!-- Top Developer Fahim Notice Bar -->
+    <div class="bg-gradient-to-r from-purple-950 via-black to-cyan-950 border-b border-purple-900/40 text-center py-1.5 px-4 text-xs font-semibold tracking-wider text-cyan-400 flex items-center justify-center gap-2">
+        <i class="fa-solid fa-bolt text-yellow-400 animate-bounce"></i>
+        <span>⚡ DEVELOPER FAHIM ⚡ — OFFICIAL HIGH PERFORMANCE PANEL</span>
+        <span class="bg-purple-900/60 text-purple-300 text-[10px] px-2 py-0.5 rounded-full border border-purple-500/30">v4.8 ACTIVE</span>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="bg-[#0A0E17]/90 backdrop-blur-md sticky top-1 z-40 border-b border-gray-800 px-4 lg:px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-purple-600/30">
+                FX
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-lg tracking-wide bg-gradient-to-r from-purple-400 via-cyan-300 to-white bg-clip-text text-transparent">FAHIM X PANEL</span>
+                    <span class="bg-cyan-500/20 text-cyan-400 text-[10px] px-1.5 py-0.5 rounded font-mono border border-cyan-500/30">OFFICIAL</span>
+                </div>
+                <div class="text-[11px] text-gray-400">Cyber Security & Game Tools</div>
+            </div>
+        </div>
+
+        <!-- Controls: Language, Currency, Support, User -->
+        <div class="flex items-center gap-2 sm:gap-4">
+            <!-- Language Toggle -->
+            <button onclick="toggleLang()" class="px-2.5 py-1.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-cyan-500 text-xs text-gray-300 flex items-center gap-1.5 transition">
+                <span id="langFlag">🇧🇩</span>
+                <span id="langText" class="font-medium">বাংলা</span>
+            </button>
+
+            <!-- Currency Toggle -->
+            <button onclick="toggleCurrency()" class="px-2.5 py-1.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-purple-500 text-xs font-mono text-cyan-400 transition">
+                <span id="currencyText">৳ BDT</span>
+            </button>
+
+            <!-- 24/7 VIP Support Button -->
+            <button onclick="openSupportModal()" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600/20 to-cyan-600/20 border border-cyan-500/40 hover:border-cyan-400 text-xs text-cyan-300 flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-headset text-cyan-400"></i>
+                <span class="hidden sm:inline">24/7 Support</span>
+            </button>
+
+            <!-- User Auth Profile State -->
+            <div id="authStatusBtn">
+                <button onclick="openAuthModal()" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-xs font-bold text-white shadow-md shadow-purple-600/30 transition">
+                    <i class="fa-solid fa-user-plus mr-1"></i> লগইন / সাইন আপ
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Recent Orders Live Ticker Bar -->
+    <div class="bg-black/80 border-b border-gray-800/80 px-4 py-2 flex items-center gap-3 overflow-hidden text-xs">
+        <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-red-950/60 border border-red-500/40 text-red-400 font-bold tracking-wider text-[11px] shrink-0">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+            LIVE
+        </div>
+        <div id="liveOrderTicker" class="text-gray-300 truncate transition-all duration-500 flex items-center gap-2">
+            <span class="text-cyan-400 font-medium">⚡ Tanvir (Dhaka)</span>
+            <span>purchased</span>
+            <span class="text-purple-300 font-bold bg-purple-900/30 px-1.5 py-0.5 rounded border border-purple-500/20">AIMBOT VIP 30D</span>
+            <span class="text-gray-500">2s ago</span>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 space-y-6">
+
+        <!-- Promotional Hero Card -->
+        <div class="relative overflow-hidden rounded-2xl neon-card p-6 sm:p-8 bg-gradient-to-r from-[#120B24] via-[#0E1529] to-[#0A1721] border border-purple-500/30">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-10 -top-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-3 max-w-xl text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/50 border border-purple-500/40 text-xs font-semibold text-purple-300">
+                        <i class="fa-solid fa-shield-halved text-cyan-400"></i> ১০০% অ্যান্টি-ব্যান ও সেফ প্যানেল
+                    </div>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-cyan-200 to-purple-400 bg-clip-text text-transparent">
+                        FAHIM X PANEL WEB VIP STORE
+                    </h1>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        বিকাশ, নগদ বা রকেটের মাধ্যমে সরাসরি পেমেন্ট করে অটোমেটিক লাইসেন্স কি এবং ডাউনলোড লিংক সংগ্রহ করুন। ইনস্ট্যান্ট ডেলিভারি ও রিয়েল-টাইম সাপোর্ট।
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+                        <button onclick="scrollToProducts()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-cyan-600 to-blue-600 hover:opacity-90 font-bold text-sm shadow-lg shadow-cyan-500/20 transition flex items-center gap-2">
+                            <i class="fa-solid fa-cart-shopping"></i> প্রোডাক্ট দেখুন
+                        </button>
+                        <button onclick="openSupportModal()" class="px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 border border-gray-700 text-sm font-semibold text-gray-200 transition flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-emerald-400"></i> যোগাযোগ করুন
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fast Info Badges -->
+                <div class="grid grid-cols-2 gap-3 w-full md:w-auto shrink-0">
+                    <div class="p-3 rounded-xl bg-black/40 border border-cyan-500/20 text-center">
+                        <div class="text-xl font-bold text-cyan-400">১০,০০০+</div>
+                        <div class="text-[11px] text-gray-400">অ্যাক্টিভ ইউজার</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-black/40 border border-purple-500/20 text-center">
+                        <div class="text-xl font-bold text-purple-400">২৪/৭</div>
+                        <div class="text-[11px] text-gray-400">লাইভ হেল্পলাইন</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-black/40 border border-green-500/20 text-center">
+                        <div class="text-xl font-bold text-emerald-400">১ সেকেন্ড</div>
+                        <div class="text-[11px] text-gray-400">অটো কি ডেলিভারি</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-black/40 border border-yellow-500/20 text-center">
+                        <div class="text-xl font-bold text-yellow-400">v4.8</div>
+                        <div class="text-[11px] text-gray-400">লেটেস্ট আপডেট</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search & Filter Tab Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <!-- Category Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0" id="categoryContainer">
+                <button onclick="filterCategory('ALL')" class="category-btn active px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-md shadow-purple-600/30">ALL</button>
+                <button onclick="filterCategory('NONROOT')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-900 border border-gray-800 text-gray-300 hover:border-gray-600 transition">NONROOT</button>
+                <button onclick="filterCategory('ROOT')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-900 border border-gray-800 text-gray-300 hover:border-gray-600 transition">ROOT</button>
+                <button onclick="filterCategory('PCPANEL')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-900 border border-gray-800 text-gray-300 hover:border-gray-600 transition">PC PANEL</button>
+                <button onclick="filterCategory('AIM')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-900 border border-gray-800 text-gray-300 hover:border-gray-600 transition">AIMBOT</button>
+            </div>
+
+            <!-- Search Field -->
+            <div class="relative w-full sm:w-72">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500 text-xs"></i>
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search tools or keys..." class="w-full bg-[#0D111A] border border-gray-800 focus:border-cyan-500 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 outline-none transition">
+            </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Dynamic products will be rendered by JS -->
+        </div>
+
+        <!-- Admin Quick Access Strip -->
+        <div class="rounded-xl border border-gray-800 bg-[#0A0D14] p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-red-950/60 border border-red-500/30 flex items-center justify-center text-red-400">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-gray-200">অ্যাডমিন কন্ট্রোল সেন্টার</h3>
+                    <p class="text-xs text-gray-400">ব্যবহারকারী ম্যানেজ করুন, ব্যালেন্স দিন, কি ও ফাইল কন্ট্রোল করুন।</p>
+                </div>
+            </div>
+            <button onclick="openAdminModal()" class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition flex items-center gap-2">
+                <i class="fa-solid fa-lock"></i> অ্যাডমিন লগইন
+            </button>
+        </div>
+    </main>
+
+    <!-- Bottom Footer with Developer Fahim Branding -->
+    <footer class="mt-auto bg-black border-t border-purple-900/30 py-6 px-4 text-center space-y-3">
+        <div class="h-0.5 w-48 mx-auto rgb-gradient-border mb-3 rounded-full"></div>
+        <div class="text-sm font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-300 to-emerald-400">
+            👑 DEVELOPER FAHIM — ALL RIGHTS RESERVED 👑
+        </div>
+        <div class="flex items-center justify-center gap-6 text-xs text-gray-400">
+            <span class="hover:text-emerald-400 cursor-pointer" onclick="openSupportModal()"><i class="fa-brands fa-whatsapp text-emerald-400 mr-1"></i> WhatsApp: 01865570014</span>
+            <span class="hover:text-cyan-400 cursor-pointer" onclick="openSupportModal()"><i class="fa-brands fa-telegram text-cyan-400 mr-1"></i> Telegram: @Fahim_Ai_Trader</span>
+            <span><i class="fa-solid fa-shield text-purple-400 mr-1"></i> Anti-Cheat Safe</span>
+        </div>
+        <div class="text-[11px] text-gray-600">
+            FAHIM X PANEL Web Store v4.8 • Direct Download & Auto Activation System
+        </div>
+    </footer>
+
+    <!-- AUTH MODAL (Login / Signup) -->
+    <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-[#0D111A] border border-cyan-500/50 rounded-2xl p-6 relative shadow-2xl shadow-cyan-500/20">
+            <!-- Close Button -->
+            <button onclick="closeAuthModal()" class="absolute right-4 top-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Brand Header -->
+            <div class="text-center space-y-1 mb-6">
+                <div class="text-xs font-bold text-cyan-400 tracking-wider">⚡ DEVELOPER FAHIM ⚡</div>
+                <h2 id="authTitle" class="text-xl font-black text-white">একাউন্টে লগইন করুন</h2>
+                <p id="authSubtitle" class="text-xs text-gray-400">FAHIM X PANEL VIP ফিচারে প্রবেশ করতে লগইন করুন</p>
+            </div>
+
+            <!-- Auth Form -->
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                <div id="nameFieldGroup" class="hidden">
+                    <label class="block text-xs text-gray-300 font-medium mb-1">পূর্ণ নাম</label>
+                    <input type="text" id="authName" placeholder="e.g. Fahim Ahmed" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-400 outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs text-gray-300 font-medium mb-1">ইউজারনেম অথবা ইমেইল</label>
+                    <input type="text" id="authEmail" required placeholder="fahim@panel.com" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-400 outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs text-gray-300 font-medium mb-1">পাসওয়ার্ড</label>
+                    <div class="relative">
+                        <input type="password" id="authPassword" required placeholder="••••••••" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-400 outline-none pr-10">
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-2.5 text-gray-400 hover:text-gray-200">
+                            <i id="passwordEyeIcon" class="fa-solid fa-eye-slash text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" id="authSubmitBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-cyan-600 to-blue-600 hover:opacity-90 font-bold text-xs text-white shadow-lg shadow-purple-600/30 transition">
+                    লগইন করুন
+                </button>
+            </form>
+
+            <!-- Toggle Between Login and Signup -->
+            <div class="text-center mt-5 text-xs text-gray-400">
+                <span id="authTogglePrompt">নতুন একাউন্ট করতে চান?</span>
+                <button type="button" onclick="switchAuthMode()" id="authToggleBtn" class="text-cyan-400 font-bold hover:underline ml-1">
+                    সাইন আপ করুন
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PURCHASE MODAL -->
+    <div id="purchaseModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-[#0D111A] border border-purple-500/50 rounded-2xl p-6 relative shadow-2xl shadow-purple-500/20 max-h-[90vh] overflow-y-auto">
+            <button onclick="closePurchaseModal()" class="absolute right-4 top-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="space-y-4">
+                <div class="border-b border-gray-800 pb-3">
+                    <span class="text-[10px] bg-purple-900/60 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30 font-bold">SECURE CHECKOUT</span>
+                    <h3 id="modalProductName" class="text-lg font-black text-white mt-1">Product Title</h3>
+                    <div id="modalProductPrice" class="text-sm font-bold text-cyan-400">৳ 0 BDT</div>
+                </div>
+
+                <!-- Payment Info -->
+                <div class="bg-black/50 p-4 rounded-xl border border-gray-800 space-y-2 text-xs">
+                    <div class="text-gray-300 font-semibold flex items-center justify-between">
+                        <span>bKash / Nagad Send Money:</span>
+                        <span class="text-emerald-400 font-mono font-bold">01677-912135</span>
+                    </div>
+                    <p class="text-gray-400">পেমেন্ট সম্পূর্ণ করে নিচের বক্সে আপনার Transaction ID (TrxID) দিয়ে সাবমিট করলেই সাথে সাথে সিরিয়াল কি এবং ডাউনলোড লিংক জেনারেট হবে।</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-gray-300 font-medium mb-1">Transaction ID (TrxID)</label>
+                    <input type="text" id="trxIdInput" placeholder="e.g. 9J28DA78K" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-purple-400 outline-none uppercase font-mono">
+                </div>
+
+                <div id="purchaseResultArea" class="hidden p-4 rounded-xl bg-purple-950/40 border border-purple-500/40 space-y-2">
+                    <div class="text-xs text-emerald-400 font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check"></i> পেমেন্ট ভেরিফাইড! লাইসেন্স কি তৈরি হয়েছে:
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="generatedKey" readonly class="w-full bg-black border border-purple-400 rounded-lg px-2.5 py-1.5 text-xs text-yellow-300 font-mono font-bold">
+                        <button onclick="copyGeneratedKey()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold shrink-0">
+                            কপি
+                        </button>
+                    </div>
+                    <a id="directDownloadBtn" href="#" target="_blank" class="block text-center w-full py-2 bg-gradient-to-r from-emerald-600 to-cyan-600 text-white font-bold rounded-lg text-xs hover:opacity-90 transition">
+                        <i class="fa-solid fa-download mr-1"></i> ফাইল সরাসরি ডাউনলোড করুন (APK/ZIP)
+                    </a>
+                </div>
+
+                <button onclick="confirmOrder()" id="confirmOrderBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 hover:opacity-90 font-bold text-xs text-white shadow-lg transition">
+                    অর্ডার কনফার্ম করুন & ফাইল ডাউনলোড
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 24/7 VIP SUPPORT MODAL -->
+    <div id="supportModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-sm bg-[#0D111A] border border-cyan-500/50 rounded-2xl p-6 relative shadow-2xl shadow-cyan-500/20 text-center space-y-4">
+            <button onclick="closeSupportModal()" class="absolute right-4 top-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="w-14 h-14 mx-auto rounded-full bg-cyan-950/60 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-2xl">
+                <i class="fa-solid fa-headset"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-white">24/7 VIP Support Helpline</h3>
+                <p class="text-xs text-gray-400">Developer Fahim Official Direct Contacts</p>
+            </div>
+            <div class="space-y-3 pt-2">
+                <a href="https://wa.me/8801865570014" target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30 hover:border-emerald-400 transition text-emerald-400 text-xs font-bold">
+                    <span class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Direct</span>
+                    <span class="font-mono text-gray-200">01865570014</span>
+                </a>
+                <a href="https://t.me/Fahim_Ai_Trader" target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/30 hover:border-cyan-400 transition text-cyan-400 text-xs font-bold">
+                    <span class="flex items-center gap-2"><i class="fa-brands fa-telegram text-lg"></i> Telegram Channel</span>
+                    <span class="font-mono text-gray-200">@Fahim_Ai_Trader</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // State variables
+        let isBangla = true;
+        let isBDT = true;
+        let currentAuthMode = 'login';
+        let loggedInUser = null;
+        let currentFilter = 'ALL';
+        let activeProductForModal = null;
+
+        // Sample Product Database matching Android Kotlin Repository
+        const products = [
+            {
+                id: '1',
+                name: 'FAHIM X VIP AIMBOT',
+                category: 'AIM',
+                bdtPrice: 450,
+                usdPrice: 4.5,
+                tag: 'NON-ROOT / ROOT',
+                desc: 'Anti-Ban 100% Guaranteed. Direct Headshot Auto-Tracking.',
+                downloadUrl: 'https://github.com',
+                image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&auto=format&fit=crop&q=60'
+            },
+            {
+                id: '2',
+                name: 'ROOT BYPASS PRO (KERNELSU)',
+                category: 'ROOT',
+                bdtPrice: 850,
+                usdPrice: 8.0,
+                tag: 'ROOT ONLY',
+                desc: 'Deep kernel level bypass with hardware ID spoofer built-in.',
+                downloadUrl: 'https://github.com',
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=60'
+            },
+            {
+                id: '3',
+                name: 'NON-ROOT ESP LOADER 64-BIT',
+                category: 'NONROOT',
+                bdtPrice: 350,
+                usdPrice: 3.5,
+                tag: 'SAFE SAFE',
+                desc: 'Smooth FPS, Location ESP, Skeleton, Health Bar display.',
+                downloadUrl: 'https://github.com',
+                image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&auto=format&fit=crop&q=60'
+            },
+            {
+                id: '4',
+                name: 'PC VIP EMULATOR PANEL',
+                category: 'PCPANEL',
+                bdtPrice: 1200,
+                usdPrice: 11.5,
+                tag: 'PC EDITION',
+                desc: 'Zero recoil, Fast stream mode for Gameloop & LDPlayer.',
+                downloadUrl: 'https://github.com',
+                image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=60'
+            },
+            {
+                id: '5',
+                name: 'GLOBAL BULLET TRACKER',
+                category: 'AIM',
+                bdtPrice: 600,
+                usdPrice: 6.0,
+                tag: '30 DAYS',
+                desc: 'Magic bullet feature with dynamic FOV slider customization.',
+                downloadUrl: 'https://github.com',
+                image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=60'
+            },
+            {
+                id: '6',
+                name: 'FAST HWID SPOOFER & UNBAN',
+                category: 'NONROOT',
+                bdtPrice: 500,
+                usdPrice: 5.0,
+                tag: 'INSTANT RESET',
+                desc: '1-click Device ID and MAC address changer tool.',
+                downloadUrl: 'https://github.com',
+                image: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=500&auto=format&fit=crop&q=60'
+            }
+        ];
+
+        // Live recent orders simulation matching Android RecentOrdersTicker
+        const liveOrders = [
+            { user: 'Tanvir (Dhaka)', item: 'AIMBOT VIP 30D', time: '1s ago' },
+            { user: 'Shakil (Chittagong)', item: 'NON-ROOT ESP 64B', time: '5s ago' },
+            { user: 'Rifat (Sylhet)', item: 'PC EMULATOR PANEL', time: '8s ago' },
+            { user: 'Sabbir (Rajshahi)', item: 'ROOT BYPASS PRO', time: '12s ago' },
+            { user: 'Hasan (Khulna)', item: 'HWID SPOOFER KEY', time: '15s ago' }
+        ];
+        let tickerIndex = 0;
+        setInterval(() => {
+            tickerIndex = (tickerIndex + 1) % liveOrders.length;
+            const o = liveOrders[tickerIndex];
+            const tickerEl = document.getElementById('liveOrderTicker');
+            if (tickerEl) {
+                tickerEl.innerHTML = `
+                    <span class="text-cyan-400 font-medium">⚡ ${o.user}</span>
+                    <span>purchased</span>
+                    <span class="text-purple-300 font-bold bg-purple-900/30 px-1.5 py-0.5 rounded border border-purple-500/20">${o.item}</span>
+                    <span class="text-gray-500">${o.time}</span>
+                `;
+            }
+        }, 3500);
+
+        // Render Products
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtered = products.filter(p => {
+                const matchesCategory = (currentFilter === 'ALL' || p.category === currentFilter);
+                const matchesSearch = p.name.toLowerCase().includes(searchVal) || p.desc.toLowerCase().includes(searchVal);
+                return matchesCategory && matchesSearch;
+            });
+
+            grid.innerHTML = filtered.map(p => {
+                const priceFormatted = isBDT ? `৳ ${p.bdtPrice} BDT` : `$ ${p.usdPrice.toFixed(2)} USD`;
+                return `
+                    <div class="neon-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                        <div class="relative h-44 overflow-hidden bg-black/60">
+                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0D111A] via-transparent to-transparent"></div>
+                            <span class="absolute top-3 left-3 bg-cyan-950/80 backdrop-blur-md text-cyan-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-cyan-500/40">
+                                ${p.tag}
+                            </span>
+                            <span class="absolute top-3 right-3 bg-purple-950/80 backdrop-blur-md text-purple-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-purple-500/40">
+                                ${p.category}
+                            </span>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                <h3 class="font-bold text-sm text-white group-hover:text-cyan-300 transition">${p.name}</h3>
+                                <p class="text-xs text-gray-400 mt-1 line-clamp-2">${p.desc}</p>
+                            </div>
+                            <div class="pt-3 border-t border-gray-800 flex items-center justify-between">
+                                <div>
+                                    <div class="text-[10px] text-gray-400">মূল্য / Price</div>
+                                    <div class="text-sm font-extrabold text-cyan-400">${priceFormatted}</div>
+                                </div>
+                                <button onclick="openPurchaseModal('${p.id}')" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-bold text-xs shadow-md shadow-purple-600/30 transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-cart-shopping"></i> কিনুন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Toggles
+        function toggleLang() {
+            isBangla = !isBangla;
+            document.getElementById('langFlag').innerText = isBangla ? '🇧🇩' : '🇬🇧';
+            document.getElementById('langText').innerText = isBangla ? 'বাংলা' : 'EN';
+        }
+
+        function toggleCurrency() {
+            isBDT = !isBDT;
+            document.getElementById('currencyText').innerText = isBDT ? '৳ BDT' : '$ USD';
+            renderProducts();
+        }
+
+        function filterCategory(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.innerText.trim() === cat || (cat === 'PCPANEL' && btn.innerText.includes('PC'))) {
+                    btn.className = 'category-btn active px-4 py-2 rounded-xl text-xs font-bold transition bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-md shadow-purple-600/30';
+                } else {
+                    btn.className = 'category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-900 border border-gray-800 text-gray-300 hover:border-gray-600 transition';
+                }
+            });
+            renderProducts();
+        }
+
+        function handleSearch() {
+            renderProducts();
+        }
+
+        function scrollToProducts() {
+            document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Auth Modal Handlers
+        function openAuthModal() {
+            document.getElementById('authModal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function switchAuthMode() {
+            currentAuthMode = (currentAuthMode === 'login') ? 'signup' : 'login';
+            const isSignup = currentAuthMode === 'signup';
+            document.getElementById('nameFieldGroup').classList.toggle('hidden', !isSignup);
+            document.getElementById('authTitle').innerText = isSignup ? 'নতুন একাউন্ট তৈরি করুন' : 'একাউন্টে লগইন করুন';
+            document.getElementById('authSubtitle').innerText = isSignup ? 'FAHIM X PANEL VIP প্যানেলে সাইন আপ করুন' : 'FAHIM X PANEL VIP ফিচারে প্রবেশ করতে লগইন করুন';
+            document.getElementById('authSubmitBtn').innerText = isSignup ? 'সাইন আপ সম্পন্ন করুন' : 'লগইন করুন';
+            document.getElementById('authTogglePrompt').innerText = isSignup ? 'ইতিমধ্যে একাউন্ট আছে?' : 'নতুন একাউন্ট করতে চান?';
+            document.getElementById('authToggleBtn').innerText = isSignup ? 'লগইন করুন' : 'সাইন আপ করুন';
+        }
+
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('authPassword');
+            const eyeIcon = document.getElementById('passwordEyeIcon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeIcon.className = 'fa-solid fa-eye text-xs';
+            } else {
+                passInput.type = 'password';
+                eyeIcon.className = 'fa-solid fa-eye-slash text-xs';
+            }
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            const name = document.getElementById('authName').value || email.split('@')[0];
+            loggedInUser = { name, email, balance: 1250 };
+            
+            // Update Header button to user profile
+            document.getElementById('authStatusBtn').innerHTML = `
+                <div class="flex items-center gap-2 bg-[#0D111A] border border-cyan-500/40 rounded-xl px-3 py-1.5 text-xs">
+                    <div class="w-6 h-6 rounded-full bg-cyan-600 flex items-center justify-center font-bold text-[10px] text-white">
+                        ${name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                        <div class="font-bold text-white text-[11px]">${name}</div>
+                        <div class="text-[9px] text-emerald-400 font-mono">৳ ${loggedInUser.balance} BDT</div>
+                    </div>
+                </div>
+            `;
+            closeAuthModal();
+        }
+
+        // Purchase Modal Handlers
+        function openPurchaseModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            activeProductForModal = product;
+            document.getElementById('modalProductName').innerText = product.name;
+            document.getElementById('modalProductPrice').innerText = isBDT ? `৳ ${product.bdtPrice} BDT` : `$ ${product.usdPrice.toFixed(2)} USD`;
+            document.getElementById('trxIdInput').value = '';
+            document.getElementById('purchaseResultArea').classList.add('hidden');
+            document.getElementById('confirmOrderBtn').classList.remove('hidden');
+            document.getElementById('purchaseModal').classList.remove('hidden');
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').classList.add('hidden');
+        }
+
+        function confirmOrder() {
+            const trxId = document.getElementById('trxIdInput').value.trim();
+            if (!trxId) {
+                alert('অনুগ্রহ করে Transaction ID (TrxID) দিন!');
+                return;
+            }
+            // Generate Key
+            const randKey = 'FX-' + Math.random().toString(36).substring(2, 7).toUpperCase() + '-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+            document.getElementById('generatedKey').value = randKey;
+            document.getElementById('directDownloadBtn').href = activeProductForModal.downloadUrl;
+            document.getElementById('purchaseResultArea').classList.remove('hidden');
+            document.getElementById('confirmOrderBtn').classList.add('hidden');
+        }
+
+        function copyGeneratedKey() {
+            const key = document.getElementById('generatedKey').value;
+            navigator.clipboard.writeText(key);
+            alert('সিরিয়াল কি কপি করা হয়েছে: ' + key);
+        }
+
+        // Support Modal
+        function openSupportModal() {
+            document.getElementById('supportModal').classList.remove('hidden');
+        }
+
+        function closeSupportModal() {
+            document.getElementById('supportModal').classList.add('hidden');
+        }
+
+        // Admin Modal Alert
+        function openAdminModal() {
+            const pass = prompt('অ্যাডমিন পাসওয়ার্ড প্রবেশ করুন:');
+            if (pass === 'fahim2026' || pass === 'admin') {
+                alert('অ্যাডমিন এক্সেস সফল! আপনি এখন ইউজার কন্ট্রোল, ব্যালেন্স প্রদান ও প্রোডাক্ট কন্ট্রোল করতে পারবেন।');
+            } else if (pass !== null) {
+                alert('ভুল পাসওয়ার্ড! শুধুমাত্র Developer Fahim এর অনুমোদিত পাসওয়ার্ড গ্রহণযোগ্য।');
+            }
+        }
+
+        // Initial render
+        renderProducts();
+    </script>
+</body>
+</html>
